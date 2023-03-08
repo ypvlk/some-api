@@ -1,0 +1,7 @@
+**/.git
+**/.vscode
+**/rbac-documents
+**/dist
+**/node_modules
+**/.npm-cache
+**/.postgres-cache
