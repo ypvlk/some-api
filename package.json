@@ -1,5 +1,5 @@
 {
-  "name": "emv-service",
+  "name": "start-service",
   "version": "1.0.0",
   "description": "Service for EVM likes networks",
   "main": "index.js",
