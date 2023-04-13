@@ -1,8 +1,8 @@
 {
-  "name": "start-service",
+  "name": "some-api",
   "version": "1.0.0",
-  "description": "Service for EVM likes networks",
-  "main": "index.js",
+  "description": "",
+  "main": "main.js",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -34,11 +34,15 @@
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.11",
     "@nestjs/platform-express": "^9.0.11",
+    "binance-api-node": "^0.12.4",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "husky": "^8.0.1",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "trongrid": "^1.2.6",
+    "tronweb": "^5.1.0",
+    "web3": "^1.8.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
@@ -65,16 +69,8 @@
     "tsconfig-paths": "^4.1.0",
     "typescript": "^4.8.3"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/web3desktoptools/evm-service.git"
-  },
   "author": "Yaroslav Pavliuk",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/web3desktoptools/evm-service/issues"
-  },
-  "homepage": "https://github.com/web3desktoptools/evm-service#readme",
   "jest": {
     "moduleFileExtensions": [
       "js",

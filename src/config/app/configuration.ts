@@ -4,33 +4,35 @@ export const TOKEN = 'app';
 
 export const configuration = registerAs(TOKEN, () => ({
   env: process.env.APP_ENV,
-  port: parseInt(process.env.PORT, 10) || 3000,
-  pgDB: {
-    host: process.env.DATABASE_HOST || 'localhost',
-    port: parseInt(process.env.DATABASE_PORT, 10) || 5432,
-    username: process.env.DB_USERNAME || 'yarik',
-    password: process.env.DB_PASSWORD || '123',
-    database: process.env.DB_DATABASE || 'test',
-
-    // based on  https://node-postgres.com/api/pool and https://github.com/typeorm/typeorm/issues/3388#issuecomment-673242516
-    // max connection pool size (default - 3 connections)
-    maxPoolSize: process.env.DB_MAX_POOL_SIZE || '3',
-
-    // connection timeout
-    connectionTimeoutMillis: process.env.DB_MAX_CONNECTION_TIMEOUT || '60000',
-
-    // idle timeout (default - 30s)
-    idleTimeoutMillis: process.env.DB_MAX_IDLE_TIMEOUT || '30000',
-  },
-  globalPrefix: process.env.URL_PREFIX || undefined,
-  jwt: {
-    auth: {
-      public: process.env.JWT_PUBLIC || 'Jwt Public default',
-      secret: process.env.JWT_SECRET || 'Jwt Secret default',
-      algorithm: process.env.JWT_ALGO || 'HS512',
-      ttl: process.env.JWT_TTL || 60 * 1000,
-    },
-    test: {},
-  },
+  port: parseInt(process.env.APP_PORT, 10) || 3000,
   allowedOrigins: process.env.ALLOWED_ORIGINS,
+  ethereum: {
+    infuraKey: process.env.ETHEREUM_INFURA_KEY || null,
+    infuraUrl: process.env.ETHEREUM_INFURA_URL || 'with https;//',
+    infuraWSUrl: process.env.ETHEREUM_INFURA_WS_URL || 'with wss://',
+    alchemyKey: process.env.ETHEREUM_ALCHEMY_KEY || null,
+    alchemyURL: process.env.ETHEREUM_ALCHEMY_URL || 'with https;//',
+    alchemyWSURL: process.env.ETHEREUM_ALCHEMY_WS_URL || 'with wss://',
+    selfNodeHost: process.env.ETHEREUM_NODE_HOST || 'localhost',
+    selfNodePort: parseInt(process.env.ETHEREUM_NODE_PORT, 10) || 8545,
+    selfNodeWSPort: parseInt(process.env.ETHEREUM_NODE_WS_PORT) || 8546,
+  },
+  tron: {
+    trongridHost: process.env.TRON_GRID_HOST || 'with https;//',
+    trongridKey: process.env.TRON_GRID_API_KEY || null,
+    tronwebFullHosts: process.env.TRON_WEB_HOSTS || [],
+  },
+  bsc: {
+    bscHost: process.env.BSC_MAIN_HOST || 'with https;//',
+  },
+  binance: {
+    binanceAPIKey: process.env.BINANCE_API_KEY || null,
+    binanceAPISecret: process.env.BINANCE_API_SECRET || null,
+  },
+  evm: {
+    privatKey: process.env.EVM_PRIVATE_KEY || null,
+  },
+  account: {
+    bscUSDTPrivateKey: process.env.USDT_BSC_PRIVATE_KEY || null,
+  },
 }));

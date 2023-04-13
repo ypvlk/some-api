@@ -15,7 +15,6 @@ async function bootstrap(): Promise<void> {
     }),
   );
 
-  app.setGlobalPrefix(appConfigService.globalPrefix);
   app.enableCors({ origin: appConfigService.allowedOrigins });
 
   function handleExit() {
