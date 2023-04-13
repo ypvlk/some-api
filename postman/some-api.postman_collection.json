@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "1e830fbf-989e-45af-adc4-f5a086923c45",
+		"name": "some-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25850599"
+	},
+	"item": [
+		{
+			"name": "/balances/eth",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/balances/eth/:address",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"balances",
+						"eth",
+						":address"
+					],
+					"variable": [
+						{
+							"key": "address",
+							"value": "0x150fb0cfa5bf3d4023ba198c725b6dcbc1577f21"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/balances/bnb",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/balances/bnb/:address",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"balances",
+						"bnb",
+						":address"
+					],
+					"variable": [
+						{
+							"key": "address",
+							"value": "0x150fb0cfa5bf3d4023ba198c725b6dcbc1577f21"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/trx-info/bsc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/trx-info/bsc/:contractAddress?transactonsCount=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"trx-info",
+						"bsc",
+						":contractAddress"
+					],
+					"query": [
+						{
+							"key": "transactonsCount",
+							"value": "10"
+						}
+					],
+					"variable": [
+						{
+							"key": "contractAddress",
+							"value": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/deposit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/deposit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"deposit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/withdraw",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"coin\": \"BNB\",\n    \"amount\": \"0.011\",\n    \"network\": \"BSC\",\n    \"address\": \"0x73Ff4eF421fF46c10df3F1F722de5da8BA3be076\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/withdraw",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"withdraw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/send/usdt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"addressTo\": \"0x5a758DB958C9fE62f39750Af7e5f2150C3CB5Fc9\",\n    \"amount\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/send/usdt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"send",
+						"usdt"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
