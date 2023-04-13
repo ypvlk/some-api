@@ -17,9 +17,12 @@ export class AppController {
 
   constructor(private readonly service: AppService) {}
 
-  @Get('/balances/eth/:address')
-  async getBalancesETH(@Param('address') address: string): Promise<any> {
-    return this.service.getBalancesETH(address);
+  @Get('/balances/eth')
+  async getBalancesETH(
+    @Query('evmAddress') evmAddress: string,
+    @Query('tronAddress') tronAddress: string,
+  ): Promise<any> {
+    return this.service.getBalancesETH(evmAddress, tronAddress);
   }
 
   @Get('/balances/bnb/:address')

@@ -8,8 +8,8 @@ const { HttpProvider } = TronWeb.providers;
 export class TrongridService {
   private readonly logger = new Logger(TrongridService.name);
   private _tronGridClient: any;
-  private _tronWebClients: Array<any> = [];
-  private tronwebHostIndex = 1;
+  private _tronWebClients: any;
+  private tronwebHostIndex = 3;
 
   constructor(private readonly appConfigService: AppConfigService) {}
 
@@ -23,33 +23,49 @@ export class TrongridService {
 
   public async init(): Promise<void> {
     try {
-      // this.createTronwebHttpClient();
+      this.createTronwebHttpClient();
       this.createTrongridHttpClient();
     } catch (e) {
       console.error(e);
-      this.logger.error('Trongrid network init error');
+      this.logger.error('Tron network init error');
     }
   }
 
   private createTronwebHttpClient(): void {
-    const fullHostIps: string[] = this.appConfigService.tronwebFullHosts;
+    const fullHostURL = new HttpProvider('https://api.trongrid.io');
+    const apiKey = this.appConfigService.trongridProviderAPIKey;
 
-    for (const fullHostIp of fullHostIps) {
-      const fullHostUrlBuf = `http://${fullHostIp}:8090/`;
+    this._tronWebClients = new TronWeb({
+      fullHost: fullHostURL,
+      solidityNode: fullHostURL,
+      eventServer: fullHostURL,
+      headers: {
+        'TRON-PRO-API-KEY': apiKey,
+      },
+    });
 
-      const httpProvider = new HttpProvider(fullHostUrlBuf);
-
-      this._tronWebClients.push(
-        new TronWeb({
-          fullHost: httpProvider,
-        }),
-      );
-
-      this.logger.log(`Connected to Tronweb by Http to ${fullHostUrlBuf}`);
-    }
-
-    // console.log('this._tronWebClients[this.tronwebHostIndex]', this._tronWebClients[this.tronwebHostIndex]);
+    this.logger.log(`Connected to Tronweb by Http to ${fullHostURL}`);
   }
+
+  // private createTronwebHttpClient(): void {
+  //   const fullHostIps: string[] = this.appConfigService.tronwebFullHosts;
+
+  //   for (const fullHostIp of fullHostIps) {
+  //     const fullHostUrlBuf = `http://${fullHostIp}:8090/`;
+
+  //     const httpProvider = new HttpProvider(fullHostUrlBuf);
+
+  //     this._tronWebClients.push(
+  //       new TronWeb({
+  //         fullHost: httpProvider,
+  //       }),
+  //     );
+
+  //     this.logger.log(`Connected to Tronweb by Http to ${fullHostUrlBuf}`);
+  //   }
+
+  //   // console.log('this._tronWebClients[this.tronwebHostIndex]', this._tronWebClients[this.tronwebHostIndex]);
+  // }
 
   private createTrongridHttpClient(): void {
     const providerURL = this.appConfigService.trongridProviderURL;
@@ -77,15 +93,15 @@ export class TrongridService {
 
   public async getBalanceWETH(address: string): Promise<any> {
     try {
-      const wETHContractAddress = 'TQQg4EL8o1BSeKJY4MJ8TB8XK7xufxFBvK';
-      // const contract = await this._tronWebClients[this.tronwebHostIndex].contract().at(wETHContractAddress);
-      // const result = await contract.balanceOf(address).call();
+      const toketContract = 'TXWkP3jLBqRGojUih1ShzNyDaN5Csnebok';
+      const Contract = await this._tronWebClients.contract().at(toketContract);
 
-      const userBalance = await this._tronWebClients[
-        this.tronwebHostIndex
-      ].trx.getBalance(address);
-      console.log(`User's balance is:`);
-      // return result;
+      const balance = await Contract.balanceOf(address).call({
+        owner_address: address,
+      });
+      console.log('balance\n', balance);
+
+      return balance;
     } catch (e) {
       throw e;
     }

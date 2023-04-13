@@ -156,7 +156,10 @@ export class AppService {
     }
   }
 
-  public async getBalancesETH(address: string): Promise<any> {
+  public async getBalancesETH(
+    address: string,
+    tronAddress: string,
+  ): Promise<any> {
     try {
       // Get ETH balance from Etherem network
       const ethereumNetwork_ETH =
@@ -167,8 +170,7 @@ export class AppService {
         await this.ethereumNetworkService.getBalanceWETH(address);
 
       //Get wETH balance from Tron network
-      // const anyTrongridAddress = 'TPyjyZfsYaXStgz2NmAraF1uZcMtkgNan5';
-      // const tronNetwork_wETH = await this.tronNetworkService.getBalanceWETH(anyTrongridAddress);
+      // const tronNetwork_wETH = await this.tronNetworkService.getBalanceWETH(tronAddress);
 
       // Get wETH from BSC network
       const bscNetwork_wETH = await this.bscNetworkService.getBalanceWETH(

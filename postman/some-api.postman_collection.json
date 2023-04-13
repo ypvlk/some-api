@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/balances/eth/:address",
+					"raw": "http://localhost:3000/balances/eth?evmAddress=0x150fb0cfa5bf3d4023ba198c725b6dcbc1577f21&tronAddress=TPyjyZfsYaXStgz2NmAraF1uZcMtkgNan5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -20,13 +20,16 @@
 					"port": "3000",
 					"path": [
 						"balances",
-						"eth",
-						":address"
+						"eth"
 					],
-					"variable": [
+					"query": [
 						{
-							"key": "address",
+							"key": "evmAddress",
 							"value": "0x150fb0cfa5bf3d4023ba198c725b6dcbc1577f21"
+						},
+						{
+							"key": "tronAddress",
+							"value": "TPyjyZfsYaXStgz2NmAraF1uZcMtkgNan5"
 						}
 					]
 				}
