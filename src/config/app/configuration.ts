@@ -24,6 +24,8 @@ export const configuration = registerAs(TOKEN, () => ({
   },
   bsc: {
     bscHost: process.env.BSC_MAIN_HOST || 'with https;//',
+    quicknodeUrl: process.env.BSC_QUICKNODE_URL || 'with https;//',
+    quicknodeWSUrl: process.env.BSC_QUICKNODE_WS_URL || 'with wss;//',
   },
   binance: {
     binanceAPIKey: process.env.BINANCE_API_KEY || null,

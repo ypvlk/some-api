@@ -32,7 +32,7 @@ export class BSCService {
   }
 
   private createWeb3HttpClient(): void {
-    const providerURL = this.appConfigService.bscHost;
+    const providerURL = this.appConfigService.bscProviderURL;
 
     if (!providerURL) {
       throw new Error('BSC HTTP Provider URL is missed.');
@@ -46,7 +46,7 @@ export class BSCService {
   }
 
   private createWeb3WsClient(): void {
-    const providerURL = this.appConfigService.ethereumWSProviderURL;
+    const providerURL = this.appConfigService.bscWSProviderURL;
 
     if (!providerURL) {
       throw new Error('Ethereum Websocket Provider is missed.');
@@ -160,18 +160,15 @@ export class BSCService {
             throw new Error('Insufficient USDT balance');
           }
 
-          console.log('Transfer amount in USDT: ', amount);
-          const convertedAmount = parseInt(amount) * 10 ** 18;
-          console.log('Transfer amount in wei: ', convertedAmount);
+          // console.log('Transfer amount in USDT: ', amount);
+          // const convertedAmount = parseFloat(amount) * 10 ** 18;
+          console.log('Transfer amount in wei: ', amount);
 
           const txParams = {
             from: addressFrom,
             to: tokenContract,
             data: Contract.methods
-              .transfer(
-                addressTo,
-                this._web3HttpClient.utils.toHex(convertedAmount),
-              )
+              .transfer(addressTo, this._web3HttpClient.utils.toHex(amount))
               .encodeABI(),
             gasPrice: this._web3HttpClient.utils.toHex('50000000000'),
             gasLimit: this._web3HttpClient.utils.toHex('60000'),
@@ -202,7 +199,7 @@ export class BSCService {
     }
   }
 
-  public async getTransactions(
+  public async getContractEvents(
     contractAddress: string,
     count: number,
   ): Promise<any> {
@@ -212,26 +209,26 @@ export class BSCService {
         contractAddress,
       );
       let latestBlockNumber = await this._web3HttpClient.eth.getBlockNumber();
-      const transactions = [];
+      const events = [];
 
-      while (transactions.length < count) {
+      while (events.length < count) {
         const options = {
           fromBlock: latestBlockNumber,
           toBlock: latestBlockNumber,
         };
 
-        const trxs = await Contract.getPastEvents('Transfer', options);
+        const ev = await Contract.getPastEvents('allEvents', options);
 
-        trxs.forEach((item) => {
-          if (transactions.length < count) {
-            transactions.push(item);
+        ev.forEach((item) => {
+          if (events.length < count) {
+            events.push(item);
           }
         });
 
         --latestBlockNumber;
       }
 
-      return transactions;
+      return events;
     } catch (e) {
       throw e;
     }
@@ -257,12 +254,14 @@ export class BSCService {
         usdcAddress,
       );
 
-      const transactions = await this.getTransactions(contractAddress, count);
+      const transactions = await this.getContractEvents(contractAddress, count);
 
       const result = [];
 
       for (const trx of transactions) {
-        const sender = trx.returnValues.from;
+        const sender = trx.returnValues.from || trx.returnValues.spender;
+        const transactionHash = trx.transactionHash;
+        const event = trx.event;
         const senderBalance = await Contract.methods.balanceOf(sender).call();
 
         const senderBalanceUSDT = await usdtContract.methods
@@ -273,6 +272,8 @@ export class BSCService {
           .call();
 
         result.push({
+          transactionHash,
+          event,
           sender,
           senderBalance: this._web3HttpClient.utils.fromWei(
             senderBalance,

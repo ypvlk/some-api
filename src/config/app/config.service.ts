@@ -99,8 +99,28 @@ export class AppConfigService {
     return ips.split(';');
   }
 
-  get bscHost(): string {
-    return this.configService.get<string>(`${TOKEN}.bsc.bscHost`);
+  get bscProviderURL(): string {
+    const quicknodeURL = this.configService.get<string>(
+      `${TOKEN}.bsc.quicknodeUrl`,
+    );
+
+    if (quicknodeURL) {
+      return `${quicknodeURL}`;
+    } else {
+      return this.configService.get<string>(`${TOKEN}.bsc.bscHost`);
+    }
+  }
+
+  get bscWSProviderURL(): string {
+    const quicknodeWSURL = this.configService.get<string>(
+      `${TOKEN}.bsc.quicknodeWSUrl`,
+    );
+
+    if (quicknodeWSURL) {
+      return `${quicknodeWSURL}`;
+    } else {
+      return this.configService.get<string>(`${TOKEN}.bsc.bscHost`);
+    }
   }
 
   get binanceAPIKey(): string {

@@ -96,9 +96,7 @@ export class TrongridService {
       const toketContract = 'TXWkP3jLBqRGojUih1ShzNyDaN5Csnebok';
       const Contract = await this._tronWebClients.contract().at(toketContract);
 
-      const balance = await Contract.balanceOf(address).call({
-        owner_address: address,
-      });
+      const balance = await Contract.balanceOf(address).call();
       console.log('balance\n', balance);
 
       return balance;
